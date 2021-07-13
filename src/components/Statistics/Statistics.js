@@ -1,30 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './Statistics.module.css';
 
 const Statistics = ({ title, stats }) => (
-<section class="statistics">
-    {title && <h2 class="title">{title}</h2>}
-    <ul class="stat-list">
-        {stats.map(({id, label, percentage}) => (
-            <li key={id} class="item">
-                <span class="label">{label}</span>
-                <span class="percentage">{percentage}%</span>
+  <section className={styles.statistics}>
+    {title && <h2 className={styles.title}>{title}</h2>}
+    <ul className={styles.stat_list}>
+      {stats.map(({ id, label, percentage }) => (
+        <li
+          key={id}
+          className={styles.item}
+          style={{ backgroundColor: randomColor() }}
+        >
+          <span className={styles.label}>{label}</span>
+          <span className={styles.percentage}>{percentage}%</span>
         </li>
-        ))}
+      ))}
     </ul>
-</section>
-)
+  </section>
+);
 
 Statistics.propTypes = {
-    title: PropTypes.string,
-    stats: PropTypes.arrayOf(
-      PropTypes.exact({
-        id: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-        percentage: PropTypes.number.isRequired,
-      }),
-    ),
+  title: PropTypes.string,
+  stats: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      percentage: PropTypes.number.isRequired,
+    }),
+  ),
 };
+
+function randomColor() {
+  return `rgb(${Math.round(Math.random() * 255)}, ${Math.round(
+    Math.random() * 255,
+  )}, ${Math.round(Math.random() * 255)})`;
+}
 
 export default Statistics;
